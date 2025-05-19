@@ -1,6 +1,6 @@
-import express from "express";
-import cors from "cors";
-import { DiscordOAuth2 } from "discord-oauth2";
+const express = require("express");
+const cors = require("cors");
+const DiscordOAuth2 = require("discord-oauth2");
 
 const app = express();
 app.use(cors());
@@ -37,4 +37,4 @@ app.post("/discord-auth", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Servidor rodando na porta", PORT)); 
+app.listen(PORT, () => console.log("Servidor rodando na porta", PORT));
