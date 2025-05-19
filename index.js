@@ -7,8 +7,12 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/discord-auth", async (req, res) => {
+  console.log("Recebido POST /discord-auth", req.body);
   const { code, redirectUri } = req.body;
-  if (!code) return res.status(400).json({ error: "Código de autorização ausente" });
+  if (!code) {
+    console.error("Código de autorização ausente");
+    return res.status(400).json({ error: "Código de autorização ausente" });
+  }
 
   try {
     const oauth = new DiscordOAuth2({
@@ -32,6 +36,7 @@ app.post("/discord-auth", async (req, res) => {
       avatar: user.avatar,
     });
   } catch (error) {
+    console.error("Discord authentication error:", error, error?.response?.data);
     res.status(500).json({ error: "Falha na autenticação com Discord", details: error.message });
   }
 });
